@@ -2,10 +2,6 @@
 
 A modern, accessible WordPress theme for mental health practices, specifically designed for Lifespan Psychiatry & Wellness. Built with Tailwind CSS, Alpine.js, and optimized for healthcare providers.
 
-## Project Overview
-
-This project creates a replica of the geodehealth.com design and functionality, customized for a two-provider psychiatric practice. The theme includes automated setup, modern design components, and comprehensive accessibility features.
-
 ## Features
 
 - ✅ **Modern Design System**: Tailwind CSS with custom healthcare-focused color palette
