@@ -1,0 +1,112 @@
+/*
+Theme Name: Lifespan Psychiatry 2024
+Description: A modern, accessible WordPress theme for Lifespan Psychiatry & Wellness. Built with Tailwind CSS, Alpine.js, and optimized for mental health practices.
+Author: Lifespan Psychiatry Team
+Version: 1.0.0
+License: GPL v2 or later
+Text Domain: lifespan-psychiatry
+Tags: healthcare, mental-health, accessibility, modern, responsive, tailwind
+*/
+
+/* Theme Info */
+/*
+This theme uses Tailwind CSS for styling. The main styles are compiled 
+from assets/css/tailwind.css into assets/css/style.css via npm build.
+
+For development:
+- Run `npm run dev` to watch for changes
+- Run `npm run build` to compile for production
+
+The theme includes:
+- Modern responsive design
+- Accessibility features (WCAG 2.1 AA)
+- Alpine.js for interactive components
+- Optimized for mental health practices
+- Automated setup and content generation
+*/
+
+/* Fallback styles (in case Tailwind build fails) */
+body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-weight: 600;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.skip-link:focus {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: auto;
+    height: auto;
+    z-index: 999999;
+    padding: 8px 16px;
+    background: #0055B7;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+/* Basic button styles */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #0055B7;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #00408a;
+}
+
+/* Screen reader text */
+.sr-only,
+.screen-reader-text {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    word-wrap: normal;
+}
+
+/* Focus styles for accessibility */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 2px solid #0055B7;
+    outline-offset: 2px;
+}

@@ -1,0 +1,57 @@
+# WordPress core files
+wp/wp-admin/
+wp/wp-includes/
+wp/wp-content/plugins/akismet/
+wp/wp-content/plugins/hello.php
+wp/wp-content/languages/
+wp/wp-content/upgrade/
+wp/wp-content/uploads/
+wp/wp-config.php
+wp/wp-config-sample.php
+wp/.htaccess
+
+# WordPress cache and temp files
+wp/wp-content/cache/
+wp/wp-content/backup-db/
+wp/wp-content/backups/
+wp/wp-content/blogs.dir/
+wp/wp-content/upgrade/
+wp/wp-content/uploads/
+
+# Node modules and build artifacts
+node_modules/
+wp/wp-content/themes/lifespan-psychiatry-2024/node_modules/
+npm-debug.log*
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+
+# Local environment files
+.env
+.env.local
+.env.production
+
+# Backup files
+*.bak
+*.tmp
+*~
+
+# Package lock files (optional - some prefer to include these)
+package-lock.json
+yarn.lock

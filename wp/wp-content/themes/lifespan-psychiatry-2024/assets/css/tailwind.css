@@ -1,0 +1,135 @@
+/* Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme Variables */
+:root {
+    --color-primary: #0055B7;
+    --color-primary-dark: #00408a;
+    --color-secondary: #4DA9FF;
+    --color-text: #333333;
+    --color-text-light: #666666;
+    --color-background: #FFFFFF;
+    --color-background-alt: #F3F4F6;
+    --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-heading: 'Poppins', var(--font-sans);
+}
+
+/* Base Styles */
+@layer base {
+    body {
+        @apply font-sans text-gray-800 antialiased;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-heading font-bold;
+    }
+    
+    h1 {
+        @apply text-4xl md:text-5xl mb-6;
+    }
+    
+    h2 {
+        @apply text-3xl mb-4;
+    }
+    
+    h3 {
+        @apply text-2xl mb-3;
+    }
+    
+    h4 {
+        @apply text-xl mb-2;
+    }
+    
+    p {
+        @apply mb-4;
+    }
+    
+    a {
+        @apply transition-colors duration-200;
+    }
+}
+
+/* Component Styles */
+@layer components {
+    .btn {
+        @apply inline-block px-6 py-3 font-medium rounded-md transition-all;
+    }
+    
+    .btn-primary {
+        @apply bg-primary text-white hover:bg-primary-dark;
+    }
+    
+    .btn-outline {
+        @apply border-2 border-primary text-primary hover:bg-primary hover:text-white;
+    }
+    
+    .container {
+        @apply px-4 mx-auto;
+    }
+    
+    .card {
+        @apply bg-white rounded-lg shadow-md overflow-hidden;
+    }
+}
+
+/* Custom Utilities */
+@layer utilities {
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
+    }
+}
+
+/* Navigation Styles */
+.main-navigation ul {
+    @apply flex items-center space-x-6;
+}
+
+.main-navigation ul li {
+    @apply relative;
+}
+
+.main-navigation ul li a {
+    @apply text-gray-700 hover:text-primary font-medium py-2;
+}
+
+.main-navigation ul li.current-menu-item > a {
+    @apply text-primary;
+}
+
+.main-navigation ul.sub-menu {
+    @apply hidden absolute bg-white shadow-lg rounded-md p-2 min-w-max flex-col space-y-1 space-x-0 z-50;
+    top: 100%;
+    left: 0;
+}
+
+.main-navigation ul li:hover > .sub-menu {
+    @apply flex;
+}
+
+.main-navigation ul.sub-menu li a {
+    @apply block w-full px-4 py-2 rounded-md hover:bg-gray-100;
+}
+
+.main-navigation ul li.menu-item-has-children > a::after {
+    content: "▾";
+    @apply ml-1 text-xs opacity-70;
+}
+
+.mobile-menu {
+    @apply space-y-4;
+}
+
+.mobile-menu li a {
+    @apply block py-2 text-lg;
+}
+
+.mobile-menu .sub-menu {
+    @apply pl-4 mt-2 space-y-2 border-l-2 border-gray-100;
+}
+
+/* Book Now Button Style */
+.book-now-button {
+    @apply bg-primary text-white hover:bg-primary-dark px-6 py-2 rounded-md font-semibold;
+}
