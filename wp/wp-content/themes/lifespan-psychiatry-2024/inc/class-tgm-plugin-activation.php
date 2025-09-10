@@ -500,3 +500,10 @@ if ( ! class_exists( 'TGM_Plugin_Activation' ) ) {
         $this->plugins[ $plugin['slug'] ] = $plugin;
     }
 }
+
+
+
+
+
+
+

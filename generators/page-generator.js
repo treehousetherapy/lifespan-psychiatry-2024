@@ -58,3 +58,10 @@ const templatePath = path.join(
 fs.writeFileSync(templatePath, pageTemplate);
 console.log(`✅ Page template ${pageTitle} created at ${templatePath}`);
 
+
+
+
+
+
+
+

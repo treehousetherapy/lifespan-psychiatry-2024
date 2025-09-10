@@ -34,3 +34,10 @@ echo the theme with default pages and content.
 echo.
 
 pause
+
+
+
+
+
+
+

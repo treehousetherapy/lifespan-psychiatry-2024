@@ -170,6 +170,20 @@ add_action('after_switch_theme', 'lifespan_create_home_page');
 // Load theme setup automation
 require_once LIFESPAN_THEME_DIR . '/setup-theme.php';
 
+/**
+ * Add theme setup admin page
+ */
+function lifespan_add_setup_menu() {
+    add_theme_page(
+        'Lifespan Theme Setup',
+        'Theme Setup',
+        'manage_options',
+        'lifespan-theme-setup',
+        'lifespan_theme_setup_page'
+    );
+}
+add_action('admin_menu', 'lifespan_add_setup_menu');
+
 // Load custom functionality if files exist
 $inc_files = array(
     '/inc/custom-post-types.php',
@@ -185,16 +199,26 @@ foreach ($inc_files as $file) {
     }
 }
 
-// Force setup to run
-delete_option('lifespan_theme_setup_complete');
+// Force setup to run on next page load
+delete_option('lifespan_setup_complete');
 
-// Run the setup immediately
+// Direct setup function that runs on theme load
 function lifespan_force_setup() {
-    if (function_exists('lifespan_theme_setup')) {
-        lifespan_theme_setup();
+    // Only run once per page load to prevent recursion
+    static $has_run = false;
+    if ($has_run) return;
+    $has_run = true;
+    
+    if (function_exists('lifespan_setup_theme')) {
+        lifespan_setup_theme();
     }
-    if (function_exists('lifespan_create_frontpage_template')) {
-        lifespan_create_frontpage_template();
-    }
+    
+    // Flush rewrite rules to ensure proper permalinks
+    flush_rewrite_rules();
 }
-add_action('init', 'lifespan_force_setup');
+
+// Run the setup on every page load until it works
+add_action('wp_loaded', 'lifespan_force_setup');
+
+// Also try to run in admin context
+add_action('admin_init', 'lifespan_force_setup');

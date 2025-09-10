@@ -229,3 +229,10 @@ taxonomyDefinitions.forEach(tax => {
 
 console.log('\n✨ Custom post types registration complete!');
 
+
+
+
+
+
+
+

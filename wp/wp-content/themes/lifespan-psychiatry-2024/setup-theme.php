@@ -6,8 +6,8 @@
  * navigation, and initial content - based on the Treehouse Therapy implementation.
  */
 
-// Exit if accessed directly
-if (!defined('ABSPATH')) {
+// Allow direct access if specifically allowed
+if (!defined('ABSPATH') && !defined('LIFESPAN_DIRECT_SETUP')) {
     exit;
 }
 

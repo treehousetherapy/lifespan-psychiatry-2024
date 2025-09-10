@@ -552,3 +552,10 @@ if (!function_exists('is_blog_installed') || is_blog_installed()) {
         lifespan_create_frontpage_template();
     }
 }
+
+
+
+
+
+
+
