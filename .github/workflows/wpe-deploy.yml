@@ -2,24 +2,94 @@ name: Deploy theme to WP Engine
 
 on:
   push:
-    branches:
-      - master
-      - main
-    paths:
-      - 'wp/wp-content/themes/lifespan-psychiatry-2024/**'
+    branches: [ master, main ]
+    paths: [ 'wp/wp-content/themes/lifespan-psychiatry-2024/**' ]
+  pull_request:
+    paths: [ 'wp/wp-content/themes/lifespan-psychiatry-2024/**' ]
+  workflow_dispatch:
+
+concurrency:
+  group: wpe-deploy
+  cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: 'wp/wp-content/themes/lifespan-psychiatry-2024/package-lock.json'
+
+      - name: Install and build theme assets
+        working-directory: wp/wp-content/themes/lifespan-psychiatry-2024
+        run: |
+          npm ci
+          npm run build
+
+      - name: Upload built theme artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: lifespan-theme
+          path: |
+            wp/wp-content/themes/lifespan-psychiatry-2024/**
+            !**/node_modules/**
+            !wp/wp-content/themes/lifespan-psychiatry-2024/src/**
+            !wp/wp-content/themes/lifespan-psychiatry-2024/package.json
+            !wp/wp-content/themes/lifespan-psychiatry-2024/package-lock.json
+            !wp/wp-content/themes/lifespan-psychiatry-2024/tailwind.config.js
+            !wp/wp-content/themes/lifespan-psychiatry-2024/postcss.config.js
+
+  dry-run:
+    needs: build
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download built theme
+        uses: actions/download-artifact@v4
+        with:
+          name: lifespan-theme
+          path: .
+
+      - name: Dry run deploy to WP Engine (no changes)
+        uses: wpengine/github-action-wpe-site-deploy@v3
+        with:
+          WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
+          WPE_ENV: ${{ secrets.WPE_ENV }}
+          SRC_PATH: 'wp/wp-content/themes/lifespan-psychiatry-2024/'
+          REMOTE_PATH: 'wp-content/themes/lifespan-psychiatry-2024/'
+          PHP_LINT: TRUE
+          FLAGS: -azvrn --inplace --delete --exclude=.* --exclude-from=.deployignore
+          CACHE_CLEAR: FALSE
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download built theme
+        uses: actions/download-artifact@v4
+        with:
+          name: lifespan-theme
+          path: .
+
       - name: Deploy theme to WP Engine
         uses: wpengine/github-action-wpe-site-deploy@v3
         with:
           WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }}
-          WPE_ENV: ${{ vars.WPE_ENV || secrets.WPE_ENV }}
+          WPE_ENV: ${{ secrets.WPE_ENV }}
           SRC_PATH: 'wp/wp-content/themes/lifespan-psychiatry-2024/'
           REMOTE_PATH: 'wp-content/themes/lifespan-psychiatry-2024/'
           PHP_LINT: TRUE
