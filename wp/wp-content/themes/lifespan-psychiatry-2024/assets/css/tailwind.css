@@ -134,6 +134,20 @@
     @apply bg-primary text-white hover:bg-primary-dark px-6 py-2 rounded-md font-semibold;
 }
 
+/* Mobile typography helpers (non-TW compile fallback via inline classes) */
+@media (max-width: 768px) {
+  h1 { font-size: 1.75rem; line-height: 1.2; }
+  h2 { font-size: 1.375rem; line-height: 1.3; }
+  p { line-height: 1.65; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 1.6rem; }
+}
+
+
+
+
 
 
 

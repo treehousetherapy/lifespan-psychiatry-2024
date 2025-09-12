@@ -18,7 +18,7 @@
             </p>
             
             <div class="flex flex-wrap gap-4">
-                <a href="/contact" class="inline-block px-6 py-3 bg-white text-primary font-semibold rounded-md hover:bg-gray-100 transition shadow-md">
+                <a href="/contact" class="inline-block px-8 py-3 bg-white text-primary font-semibold rounded-md hover:bg-gray-100 transition shadow-md" style="min-width: 180px; text-align: center;">
                     Book Appointment
                 </a>
                 <a href="#learn-more" class="inline-block px-6 py-3 border-2 border-white text-white font-semibold rounded-md hover:bg-white hover:bg-opacity-10 transition">

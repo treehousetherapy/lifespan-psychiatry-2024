@@ -122,8 +122,12 @@
 					?>
 				</div><!-- .site-branding -->
 
-				<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false">
-					<span class="menu-icon">☰</span>
+				<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="menu-icon" aria-hidden="true">
+						<span class="bar"></span>
+						<span class="bar"></span>
+						<span class="bar"></span>
+					</span>
 					<span class="screen-reader-text"><?php esc_html_e( 'Menu', 'lifespan-psychiatry' ); ?></span>
 				</button>
 
@@ -155,6 +159,9 @@
 			</div>
 		</div>
 	</header><!-- #masthead -->
+
+	<!-- Mobile overlay for off-canvas menu -->
+	<div class="mobile-overlay" aria-hidden="true"></div>
 
 <style>
 /* Homepage hero color overrides */
@@ -281,7 +288,6 @@ body.home .hero p { color: #7B61FF !important; }
 	display: none;
 	background: none;
 	border: none;
-	font-size: 1.5rem;
 	color: var(--text-dark);
 	cursor: pointer;
 	padding: 0.5rem;
@@ -305,34 +311,37 @@ body.home .hero p { color: #7B61FF !important; }
 }
 
 @media (max-width: 768px) {
-	.menu-toggle {
-		display: block;
-		order: 2;
-	}
+	/* Mobile header layout */
+	.menu-toggle { display: block; order: 2; }
+	.menu-toggle .menu-icon { display: inline-flex; flex-direction: column; gap: 5px; }
+	.menu-toggle .bar { display: block; width: 24px; height: 2px; background: var(--text-dark); border-radius: 2px; transition: transform var(--transition-fast), opacity var(--transition-fast); }
+	.menu-toggle.open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+	.menu-toggle.open .bar:nth-child(2) { opacity: 0; }
+	.menu-toggle.open .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+	/* Smaller logo on mobile */
+	.real-logo img,
+	.custom-logo-link img,
+	.custom-logo { max-height: 56px !important; }
 	
 	.main-navigation {
 		order: 3;
-		flex-basis: 100%;
+		flex-basis: auto;
 	}
 	
-	.main-navigation .nav-menu {
-		display: none;
-		flex-direction: column;
-		gap: 0;
-		background: white;
-		box-shadow: var(--shadow-md);
-		border-radius: var(--border-radius-md);
-		padding: 1rem;
-		margin-top: 1rem;
-	}
+	/* Off-canvas menu */
+	.main-navigation .nav-menu { position: fixed; inset: 0 auto 0 0; top: 0; left: 0; height: 100vh; width: 80%; max-width: 320px; display: flex; flex-direction: column; gap: 0; background: #fff; box-shadow: var(--shadow-lg); border-radius: 0; padding: 1.25rem; margin-top: 0; transform: translateX(-100%); transition: transform var(--transition-fast); z-index: 1100; }
 	
-	.main-navigation .nav-menu.active {
-		display: flex;
-	}
+	.main-navigation .nav-menu.active { transform: translateX(0); }
+
+	/* Overlay behind the drawer */
+	.mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); opacity: 0; visibility: hidden; transition: opacity var(--transition-fast), visibility var(--transition-fast); z-index: 1000; }
+	.mobile-overlay.active { opacity: 1; visibility: visible; }
 	
 	.main-navigation .nav-menu a {
-		padding: 0.75rem 0;
+		padding: 0.9rem 0.25rem;
 		border-bottom: 1px solid var(--border-color);
+		font-size: 1.05rem;
 	}
 	
 	.main-navigation .nav-menu li:last-child a {
@@ -355,46 +364,114 @@ body.home .hero p { color: #7B61FF !important; }
 		order: 4;
 		flex-basis: 100%;
 		justify-content: center;
-		margin-top: 1rem;
+		margin-top: 0.5rem;
 	}
 	
 	.header-actions .btn {
-		padding: 0.5rem 0.75rem;
-		font-size: 0.8rem;
-		flex: 1;
+		padding: 0.6rem 0.9rem;
+		font-size: 0.85rem;
+		flex: 0 0 auto;
 		text-align: center;
 	}
+
+	/* Hero adjustments on mobile */
+	.hero .container { padding-top: 2rem; padding-bottom: 2rem; }
+	.hero h1 { font-size: 2rem; line-height: 1.2; margin-bottom: 0.75rem; }
+	.hero p { font-size: 1.0625rem; line-height: 1.6; margin-bottom: 1rem; }
+	.hero .flex { justify-content: center; }
+	.hero a[class*="px-"] { border-radius: 0.5rem; font-weight: 700; }
+
+	/* Gutenberg cover hero adjustments */
+	.wp-block-cover { min-height: 50vh; }
+	.wp-block-cover h1 { font-size: 2rem; line-height: 1.2; }
+	.wp-block-cover p { font-size: 1.0625rem; line-height: 1.6; }
+	.wp-block-buttons { display: flex; justify-content: center; }
+	.wp-block-button__link { padding: 0.9rem 1.1rem; border-radius: 8px; font-weight: 700; }
 }
 
 @media (max-width: 480px) {
-	.site-logo {
-		font-size: 1.25rem;
-	}
-	
-	.logo-icon {
-		font-size: 1.5rem;
-	}
-	
-	.header-actions .btn {
-		font-size: 0.75rem;
-		padding: 0.4rem 0.6rem;
-	}
+	.site-logo { font-size: 1.25rem; }
+	.logo-icon { font-size: 1.5rem; }
+	.real-logo img,
+	.custom-logo-link img,
+	.custom-logo { max-height: 52px !important; }
+
+	/* Very small phones: typography */
+	.hero h1, .wp-block-cover h1 { font-size: 1.75rem; }
+	.hero p, .wp-block-cover p { font-size: 1rem; }
+}
+
+/* Narrow iPhones (375px) */
+@media (max-width: 375px) {
+	.hero h1, .wp-block-cover h1 { font-size: 1.625rem; }
+	.hero p, .wp-block-cover p { font-size: 0.975rem; }
+}
+
+/* Smallest iPhones (320px) */
+@media (max-width: 320px) {
+	.hero h1, .wp-block-cover h1 { font-size: 1.5rem; }
+	.hero p, .wp-block-cover p { font-size: 0.95rem; }
 }
 </style>
 
 <script>
-// Mobile menu toggle functionality
+// Mobile menu: off-canvas with overlay, ESC to close, scroll lock
 document.addEventListener('DOMContentLoaded', function() {
 	const menuToggle = document.querySelector('.menu-toggle');
 	const navMenu = document.querySelector('.nav-menu');
-	
+	const overlay = document.querySelector('.mobile-overlay');
+	const focusableSelectors = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+	let previousActiveElement = null;
+
+	function openMenu() {
+		if (!navMenu) return;
+		previousActiveElement = document.activeElement;
+		navMenu.classList.add('active');
+		overlay && overlay.classList.add('active');
+		menuToggle && menuToggle.classList.add('open');
+		menuToggle && menuToggle.setAttribute('aria-expanded', 'true');
+		document.body.style.overflow = 'hidden';
+		const firstFocusable = navMenu.querySelector(focusableSelectors);
+		if (firstFocusable) firstFocusable.focus();
+	}
+
+	function closeMenu() {
+		if (!navMenu) return;
+		navMenu.classList.remove('active');
+		overlay && overlay.classList.remove('active');
+		menuToggle && menuToggle.classList.remove('open');
+		menuToggle && menuToggle.setAttribute('aria-expanded', 'false');
+		document.body.style.overflow = '';
+		if (previousActiveElement) previousActiveElement.focus({ preventScroll: true });
+	}
+
 	if (menuToggle && navMenu) {
 		menuToggle.addEventListener('click', function() {
-			navMenu.classList.toggle('active');
-			const isExpanded = navMenu.classList.contains('active');
-			menuToggle.setAttribute('aria-expanded', isExpanded);
+			const isOpen = navMenu.classList.contains('active');
+			isOpen ? closeMenu() : openMenu();
 		});
 	}
+
+	overlay && overlay.addEventListener('click', closeMenu);
+
+	navMenu && navMenu.addEventListener('click', function(e) {
+		const target = e.target;
+		if (target && target.tagName === 'A') {
+			closeMenu();
+		}
+	});
+
+	document.addEventListener('keydown', function(e) {
+		if (e.key === 'Escape' && navMenu && navMenu.classList.contains('active')) {
+			closeMenu();
+		}
+	});
+
+	window.addEventListener('resize', function() {
+		if (window.innerWidth > 1024) {
+			closeMenu();
+		}
+	});
 });
 </script>
 
