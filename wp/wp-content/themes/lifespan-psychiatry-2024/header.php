@@ -157,6 +157,14 @@
 	</header><!-- #masthead -->
 
 <style>
+/* Homepage hero color overrides */
+body.home .wp-block-cover h1,
+body.home .wp-block-group.alignfull h1,
+body.home .hero h1 { color: #7B61FF !important; }
+body.home .wp-block-cover p,
+body.home .wp-block-group.alignfull p,
+body.home .hero p { color: #7B61FF !important; }
+
 /* Header Styles */
 .top-notification {
 	background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -404,3 +412,6 @@ if (!function_exists('lifespan_psychiatry_fallback_menu')) {
 	}
 }
 ?>
+
+
+
