@@ -1,0 +1,37 @@
+# Files and directories to exclude from WP Engine deploys via rsync
+# Node/build and editor junk
+node_modules/
+**/node_modules/
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+.vscode/
+.idea/
+
+# Local dev and backups
+local.sql
+*.sql.gz
+backup/
+backups/
+
+# Git and CI
+.git/
+.github/
+.gitignore
+.deployignore
+
+# Theme dev caches/build artifacts that should not be on server root
+wp/wp-content/themes/lifespan-psychiatry-2024/.cache/
+wp/wp-content/themes/lifespan-psychiatry-2024/.vite/
+wp/wp-content/themes/lifespan-psychiatry-2024/src/
+wp/wp-content/themes/lifespan-psychiatry-2024/package-lock.json
+wp/wp-content/themes/lifespan-psychiatry-2024/package.json
+wp/wp-content/themes/lifespan-psychiatry-2024/postcss.config.js
+wp/wp-content/themes/lifespan-psychiatry-2024/tailwind.config.js
+
+# Do not deploy local wp core or uploads from this repo structure
+wp/wp-admin/
+wp/wp-includes/
+wp/wp-content/uploads/
