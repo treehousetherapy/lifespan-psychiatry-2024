@@ -9,11 +9,11 @@
 <section class="hero bg-primary text-white relative overflow-hidden">
     <div class="container mx-auto px-4 py-16 md:py-24 relative z-10">
         <div class="max-w-3xl">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            <h1 class="text-hero text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
                 The best of mental healthcare in one place
             </h1>
             
-            <p class="text-xl md:text-2xl mb-8 max-w-2xl">
+            <p class="text-hero text-xl md:text-2xl mb-8 max-w-2xl">
                 Get care fast — in person or online, within days. Expert care for depression, anxiety, ADHD and more.
             </p>
             
@@ -30,6 +30,9 @@
     
     <div class="absolute inset-0 bg-primary-dark bg-opacity-30 z-0"></div>
 </section>
+
+
+
 
 
 

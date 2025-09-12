@@ -94,6 +94,7 @@ function lifespan_add_inline_styles() {
         .text-center { text-align: center; }
         .text-white { color: white; }
         .text-primary { color: #0055B7; }
+        .text-hero { color: #7B61FF; }
         .bg-primary { background-color: #0055B7; }
         .bg-white { background-color: white; }
         .bg-gray-100 { background-color: #f3f4f6; }
