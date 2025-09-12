@@ -7,6 +7,14 @@ on:
   pull_request:
     paths: [ 'wp/wp-content/themes/lifespan-psychiatry-2024/**' ]
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment (staging or production)'
+        type: choice
+        required: true
+        options:
+          - staging
+          - production
 
 concurrency:
   group: wpe-deploy
@@ -47,7 +55,7 @@ jobs:
 
   dry-run:
     needs: build
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -74,7 +82,7 @@ jobs:
     needs: build
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
+    environment: ${{ (github.event_name == 'workflow_dispatch' && inputs.environment) || (github.ref_name == 'main' && 'production') || (github.ref_name == 'master' && 'production') || 'staging' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
