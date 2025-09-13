@@ -54,4 +54,4 @@ Thumbs.db
 
 # Package lock files (optional - some prefer to include these)
 package-lock.json
-yarn.lock
+yarn.lock.github/wpe_ssh/
