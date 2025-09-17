@@ -239,3 +239,12 @@ console.log('\n✨ Custom post types registration complete!');
 
 
 
+
+
+
+
+
+
+
+
+

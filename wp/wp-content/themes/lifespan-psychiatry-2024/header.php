@@ -70,6 +70,10 @@
 			max-height: 140px !important;
 		}
 	}
+
+	/* Skip link: hidden until focused (accessibility without visual clutter) */
+	.skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+	.skip-link:focus { position: fixed; top: 10px; left: 10px; width: auto; height: auto; z-index: 999999; padding: 8px 16px; background: #0055B7; color: #fff; text-decoration: none; border-radius: 4px; }
 	</style>
 </head>
 
@@ -82,7 +86,7 @@
 	<!-- Top Notification Bar -->
 	<div class="top-notification">
 		<div class="container">
-			<p><strong>Same Week Appointments – Book Today!</strong></p>
+			<p><strong>Same Week Appointments &ndash; Book Today!</strong></p>
 		</div>
 	</div>
 
